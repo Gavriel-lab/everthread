@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "everthread"
+version = "0.2.0"
+description = "Portable memory starter kit for emotionally continuous AI companions"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+  { name = "Everthread contributors" }
+]
+keywords = ["ai-companion", "memory", "migration", "chatgpt-export", "recall"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: End Users/Desktop",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Topic :: Utilities"
+]
+
+[project.scripts]
+everthread = "everthread.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["everthread*"]

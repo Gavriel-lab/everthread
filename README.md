@@ -61,6 +61,9 @@ everthread/
   README.md
   README.zh-CN.md
   README.en.md
+  everthread/
+    cli.py
+    importers/
   docs/
     architecture.zh-CN.md
     memory-lifecycle.zh-CN.md
@@ -76,7 +79,88 @@ everthread/
     brain-config.template.json
   examples/
     companion-memory.example.json
+  tests/
 ```
+
+## v0.2 Starter Kit
+
+Everthread v0.2 includes a small Python CLI. It uses only the Python standard
+library.
+
+### Install locally
+
+```bash
+git clone https://github.com/Gavriel-lab/everthread.git
+cd everthread
+python -m pip install -e .
+```
+
+You can also run it without installing:
+
+```bash
+python -m everthread --help
+```
+
+### Create a memory workspace
+
+```bash
+python -m everthread init ./my-memory
+```
+
+This creates:
+
+```text
+my-memory/
+  hot-brain/
+  cold-warehouse/
+  dream/
+  adapters/
+  recall-budget.json
+  everthread.json
+```
+
+### Import a ChatGPT export
+
+```bash
+python -m everthread import chatgpt ./chatgpt-export --workspace ./my-memory
+```
+
+The importer:
+
+- scans `conversations*.json`
+- skips duplicate conversation IDs
+- writes a manifest without message bodies
+- writes stable SHA-256 ID hashes
+- optionally creates per-conversation Markdown under `cold-warehouse/text`
+
+It does not delete or rewrite your original export.
+
+### Generate monthly digest
+
+```bash
+python -m everthread digest monthly --workspace ./my-memory
+```
+
+The digest layer creates a month-by-month recall map under:
+
+```text
+my-memory/dream/monthly/
+```
+
+Digest files do not quote private message bodies by default.
+
+### Generate recall budget
+
+```bash
+python -m everthread recall-budget --workspace ./my-memory --force
+```
+
+This creates a default recall budget that keeps legacy recall light:
+
+- default legacy search: off
+- max legacy queries per interaction: 1
+- max results per query: 5
+- prefer digest before raw search
 
 ## 数据边界
 
@@ -91,4 +175,3 @@ everthread/
 ## License
 
 MIT
-

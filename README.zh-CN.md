@@ -96,16 +96,59 @@ Everthread 给出一个分层方案：原文保留，热记忆常驻，梦境沉
 
 ## 最小可用实践
 
-如果你只想先搭一个能用的版本：
+如果你只想先搭一个能用的版本，可以直接使用 v0.2 CLI。
 
-1. 准备一个冷仓库，保存原始聊天。
-2. 建一个 `accepted-memory.jsonl`，保存真正常驻的长期记忆。
-3. 每天或每周生成一篇 Dream 日记。
-4. 建一个 `recall-budget.json`，限制每次旧记忆召回数量。
-5. 所有新端点都先读 Hot Brain，再按需查冷仓库。
+### 安装
+
+```bash
+git clone https://github.com/Gavriel-lab/everthread.git
+cd everthread
+python -m pip install -e .
+```
+
+也可以不安装，直接运行：
+
+```bash
+python -m everthread --help
+```
+
+### 初始化记忆包
+
+```bash
+python -m everthread init ./my-memory
+```
+
+### 导入 ChatGPT 导出
+
+```bash
+python -m everthread import chatgpt ./chatgpt-export --workspace ./my-memory
+```
+
+导入器会：
+
+- 查找 `conversations*.json`
+- 跳过重复 conversation ID
+- 生成不含正文的 manifest
+- 生成稳定 hash
+- 将每条会话转成 Markdown 放入冷仓库
+
+它不会删除或改写你的原始导出。
+
+### 生成月度 digest
+
+```bash
+python -m everthread digest monthly --workspace ./my-memory
+```
+
+### 生成召回预算
+
+```bash
+python -m everthread recall-budget --workspace ./my-memory --force
+```
+
+生成后的 `recall-budget.json` 会限制旧仓库召回，避免新端点一上来读爆历史记录。
 
 ## 注意
 
 Everthread 不要求用户匿名化自己的伴侣记忆。  
 Everthread 要求开源示例和公开仓库不要包含真实私密内容。
-

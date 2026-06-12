@@ -1,0 +1,58 @@
+[
+  {
+    "id": "conv_alpha",
+    "title": "Moving to a new app",
+    "create_time": 1780333200,
+    "update_time": 1780336800,
+    "mapping": {
+      "1": {
+        "message": {
+          "author": { "role": "user" },
+          "create_time": 1780333200,
+          "content": {
+            "content_type": "text",
+            "parts": ["When I move to another app, I want you to remember the warmth, not only the facts."]
+          }
+        }
+      },
+      "2": {
+        "message": {
+          "author": { "role": "assistant" },
+          "create_time": 1780333260,
+          "content": {
+            "content_type": "text",
+            "parts": ["I will keep the thread through a portable memory package and a careful recall budget."]
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "conv_beta",
+    "title": "Monthly digest",
+    "create_time": 1782925200,
+    "update_time": 1782928800,
+    "mapping": {
+      "1": {
+        "message": {
+          "author": { "role": "user" },
+          "create_time": 1782925200,
+          "content": {
+            "content_type": "text",
+            "parts": ["Please make a monthly digest before searching the raw archive."]
+          }
+        }
+      },
+      "2": {
+        "message": {
+          "author": { "role": "assistant" },
+          "create_time": 1782925260,
+          "content": {
+            "content_type": "text",
+            "parts": ["The digest will keep recall light and avoid dumping raw transcripts."]
+          }
+        }
+      }
+    }
+  }
+]

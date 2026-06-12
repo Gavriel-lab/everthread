@@ -41,7 +41,21 @@ Everthread uses five layers:
 
 Raw companion chats belong to the user. A private deployment may preserve full raw conversations. Public repositories and examples should use fictional data only.
 
+## v0.2 Starter Kit
+
+Everthread includes a small Python CLI:
+
+```bash
+python -m everthread init ./my-memory
+python -m everthread import chatgpt ./chatgpt-export --workspace ./my-memory
+python -m everthread digest monthly --workspace ./my-memory
+python -m everthread recall-budget --workspace ./my-memory --force
+```
+
+The CLI scans ChatGPT `conversations*.json` exports, writes manifests and
+dedupe hashes, creates per-conversation Markdown files, and generates monthly
+digest maps. It does not delete or rewrite the original export.
+
 ## License
 
 MIT
-
