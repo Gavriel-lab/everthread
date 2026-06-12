@@ -1,0 +1,38 @@
+{
+  "schema": "everthread.memory_object.v0.1",
+  "memory_id": "mem_example_001",
+  "legacy_source_id": "warehouse_example_2026_06_001",
+  "content_hash": "sha256:example",
+  "created_at": "2026-06-01T12:00:00Z",
+  "updated_at": "2026-06-01T12:00:00Z",
+  "source": {
+    "carrier": "chat_app",
+    "source_type": "interaction",
+    "source_path": "examples/fake-chat-export.json",
+    "authority": "candidate"
+  },
+  "content": {
+    "raw_excerpt": null,
+    "safe_summary": "The user said that moving to a new app made the companion feel colder, and asked for a way to preserve emotional continuity.",
+    "language": "en",
+    "contains_private_raw": false
+  },
+  "classification": {
+    "memory_type": "migration_pain_point",
+    "primary_brain_area": "Hippocampus",
+    "secondary_brain_areas": ["Amygdala", "Prefrontal"],
+    "tags": ["cross_port_migration", "emotional_continuity", "ai_companion"]
+  },
+  "scores": {
+    "importance": 0.9,
+    "emotional_heat": 0.8,
+    "recurrence": 0.7,
+    "stability": 0.8,
+    "utility": 0.9,
+    "retention_score": 0.84
+  },
+  "lifecycle": {
+    "state": "accepted",
+    "recommended_action": "deepen"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://everthread.dev/schemas/brain-area-routing.schema.json",
+  "title": "Everthread Brain Area Routing",
+  "type": "object",
+  "required": ["schema", "brain_areas"],
+  "properties": {
+    "schema": {
+      "const": "everthread.brain_area_routing.v0.1"
+    },
+    "brain_areas": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["role", "stores", "does_not_store"],
+        "properties": {
+          "role": { "type": "string" },
+          "stores": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "does_not_store": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "recall_policy": { "type": "string" }
+        }
+      }
+    }
+  }
+}

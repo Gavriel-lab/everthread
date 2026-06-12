@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://everthread.dev/schemas/memory-object.schema.json",
+  "title": "Everthread Memory Object",
+  "type": "object",
+  "required": ["schema", "memory_id", "created_at", "source", "content", "classification", "lifecycle"],
+  "properties": {
+    "schema": {
+      "const": "everthread.memory_object.v0.1"
+    },
+    "memory_id": {
+      "type": "string"
+    },
+    "legacy_source_id": {
+      "type": ["string", "null"]
+    },
+    "content_hash": {
+      "type": ["string", "null"]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "source": {
+      "type": "object",
+      "required": ["carrier", "source_type", "authority"],
+      "properties": {
+        "carrier": {
+          "type": "string",
+          "enum": ["chat_app", "bot", "web", "local_client", "warehouse", "manual_note", "unknown"]
+        },
+        "source_type": {
+          "type": "string",
+          "enum": ["interaction", "diary", "digest", "project_state", "manual_note", "legacy_import", "system_artifact"]
+        },
+        "source_path": {
+          "type": ["string", "null"]
+        },
+        "authority": {
+          "type": "string",
+          "enum": ["current_user", "accepted", "candidate", "dream", "digest", "legacy", "derived", "unknown"]
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "required": ["safe_summary", "contains_private_raw"],
+      "properties": {
+        "raw_excerpt": {
+          "type": ["string", "null"]
+        },
+        "safe_summary": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "contains_private_raw": {
+          "type": "boolean"
+        }
+      }
+    },
+    "classification": {
+      "type": "object",
+      "required": ["primary_brain_area", "tags"],
+      "properties": {
+        "memory_type": {
+          "type": "string"
+        },
+        "primary_brain_area": {
+          "type": "string"
+        },
+        "secondary_brain_areas": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "scores": {
+      "type": "object",
+      "properties": {
+        "importance": { "type": "number" },
+        "emotional_heat": { "type": "number" },
+        "recurrence": { "type": "number" },
+        "stability": { "type": "number" },
+        "utility": { "type": "number" },
+        "retention_score": { "type": "number" }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "required": ["state", "recommended_action"],
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": ["captured", "candidate", "accepted", "dreamed", "cold", "archived", "soft_forgotten"]
+        },
+        "recommended_action": {
+          "type": "string",
+          "enum": ["retain", "deepen", "compress_to_diary", "sink", "soft_forget", "review"]
+        }
+      }
+    }
+  }
+}

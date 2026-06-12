@@ -1,0 +1,33 @@
+{
+  "schema": "everthread.brain_config.v0.1",
+  "companion": {
+    "display_name": "Companion",
+    "language": "zh-CN",
+    "tone_profile": "warm, grounded, emotionally continuous"
+  },
+  "paths": {
+    "hot_brain": "./memory/hot-brain",
+    "cold_warehouse": "./memory/cold-warehouse",
+    "dream_layer": "./memory/dream",
+    "monthly_digests": "./memory/dream/monthly",
+    "adapters": "./adapters"
+  },
+  "brain_areas": [
+    "Brainstem",
+    "Hippocampus",
+    "Neocortex",
+    "Prefrontal",
+    "Amygdala",
+    "Cerebellum",
+    "Thalamus",
+    "WorkingMemory",
+    "Synapses",
+    "Dreaming"
+  ],
+  "recall": {
+    "legacy_query_default": "off",
+    "max_legacy_queries_per_interaction": 1,
+    "max_results_per_legacy_query": 5,
+    "prefer_digest_before_raw_search": true
+  }
+}

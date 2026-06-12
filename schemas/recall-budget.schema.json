@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://everthread.dev/schemas/recall-budget.schema.json",
+  "title": "Everthread Recall Budget",
+  "type": "object",
+  "required": ["schema", "default_policy", "allowed_triggers", "blocked_by_default"],
+  "properties": {
+    "schema": {
+      "const": "everthread.recall_budget.v0.1"
+    },
+    "default_policy": {
+      "type": "object",
+      "required": [
+        "legacy_query_default",
+        "max_legacy_queries_per_interaction",
+        "max_results_per_legacy_query",
+        "max_total_legacy_context_chars"
+      ],
+      "properties": {
+        "legacy_query_default": {
+          "type": "string",
+          "enum": ["off", "on", "ask"]
+        },
+        "max_legacy_queries_per_interaction": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_results_per_legacy_query": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_source_excerpt_chars_per_result": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_total_legacy_context_chars": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "prefer_digest_before_raw_search": {
+          "type": "boolean"
+        }
+      }
+    },
+    "allowed_triggers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "blocked_by_default": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
