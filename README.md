@@ -68,6 +68,7 @@ everthread/
     architecture.zh-CN.md
     memory-lifecycle.zh-CN.md
     recall-flow.zh-CN.md
+    frontend-port-adapter.zh-CN.md
     cross-port-migration.zh-CN.md
     data-ownership-and-boundaries.zh-CN.md
   schemas/
@@ -79,6 +80,7 @@ everthread/
     brain-config.template.json
   examples/
     companion-memory.example.json
+    frontend-turn.example.json
   tests/
 ```
 
@@ -182,6 +184,28 @@ Everthread treats forgetting as memory flow, not careless deletion.
 
 This lets a companion stay light and alive without pretending the shared past
 never happened.
+
+## Frontend / Bot Connection
+
+Everthread is not a chat frontend. It is the memory layer that a frontend or bot
+can call before and after each model response.
+
+Recommended turn flow:
+
+```text
+user message
+  -> frontend or bot
+  -> get recall context from Everthread
+  -> call model
+  -> show assistant reply
+  -> capture the turn back into Everthread
+  -> Dream / digest consolidates later
+```
+
+See:
+
+- `docs/frontend-port-adapter.zh-CN.md`
+- `examples/frontend-turn.example.json`
 
 ## 数据边界
 

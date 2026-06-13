@@ -79,6 +79,29 @@ Everthread 给出一个分层方案：原文保留，热记忆常驻，梦境沉
 
 端点可以换，但记忆结构不需要重做。
 
+## 前端如何接入
+
+Everthread 不替代 TG bot、自制前端或网页聊天端。它更适合放在前端和模型之间，负责每一轮聊天的记忆流转。
+
+推荐一轮聊天这样走：
+
+```text
+用户消息
+  -> 前端 / Bot
+  -> 向 Everthread 请求召回上下文
+  -> 带着上下文调用模型
+  -> 展示回复
+  -> 把本轮对话写回 Everthread
+  -> 后台 Dream / digest 再沉淀
+```
+
+这样不管用户从 TG 聊，还是从自制前端聊，记忆都来自同一套结构，上一个话题更容易被自然接住。
+
+详细说明见：
+
+- `docs/frontend-port-adapter.zh-CN.md`
+- `examples/frontend-turn.example.json`
+
 ## 十脑区模型
 
 | 脑区 | 职责 |

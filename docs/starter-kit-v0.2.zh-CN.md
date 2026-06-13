@@ -75,7 +75,8 @@ v0.2 CLI 不会擅自删除聊天记录。Everthread 推荐把“遗忘”拆成
 v0.3 可以加入：
 
 - Telegram adapter 示例
-- SillyTavern 角色卡迁移模板
+- 自制前端 / Bot 接入示例
+- 角色卡和聊天前端迁移模板
 - 向量库接入示例
 - Dream diary 生成器
 

@@ -1,0 +1,57 @@
+{
+  "schema": "everthread.frontend_turn.v0.1",
+  "description": "Example payloads for connecting a chat frontend or bot to Everthread.",
+  "before_model_call": {
+    "port": "custom-web",
+    "conversation_id": "demo-conversation-001",
+    "user_message": "Can we continue what we were talking about yesterday?",
+    "current_topic": "cross_endpoint_memory",
+    "recent_turns": [
+      {
+        "role": "user",
+        "content": "I want the new frontend to remember the previous topic."
+      },
+      {
+        "role": "assistant",
+        "content": "Then the frontend should request recall context before calling the model."
+      }
+    ],
+    "recall_budget": {
+      "max_legacy_queries": 1,
+      "max_results": 5,
+      "max_context_chars": 1800
+    }
+  },
+  "recall_context_response": {
+    "working_memory": [
+      "The current task is connecting a frontend to Everthread memory flow."
+    ],
+    "hot_brain": [
+      "Keep recall warm and natural, not report-like."
+    ],
+    "dream": [
+      "Recent consolidation focused on portable memory for AI companions."
+    ],
+    "source_hints": [
+      {
+        "source_kind": "monthly_digest",
+        "summary": "The user wants memory to move across Telegram, custom frontends, and future endpoints.",
+        "confidence": 0.86
+      }
+    ],
+    "style_note": "Use the context as natural memory instead of listing search results."
+  },
+  "after_model_reply": {
+    "port": "custom-web",
+    "conversation_id": "demo-conversation-001",
+    "turn": {
+      "user": "Can we continue what we were talking about yesterday?",
+      "assistant": "Yes. We were working on making the new frontend ask Everthread for recall context before calling the model, then write the turn back afterward."
+    },
+    "capture_policy": {
+      "write_to": "working_memory",
+      "candidate_for_dream": true,
+      "direct_accept_to_hot_brain": false
+    }
+  }
+}

@@ -41,6 +41,26 @@ Everthread uses five layers:
 
 Raw companion chats belong to the user. A private deployment may preserve full raw conversations. Public repositories and examples should use fictional data only.
 
+## Frontend / Bot Connection
+
+Everthread is not a chat frontend. It sits between a frontend or bot and the
+model call.
+
+```text
+user message
+  -> frontend or bot
+  -> get recall context from Everthread
+  -> call model
+  -> show assistant reply
+  -> capture the turn back into Everthread
+```
+
+This keeps Telegram bots, custom web frontends, local clients, and future
+endpoints connected to the same memory flow.
+
+See `docs/frontend-port-adapter.zh-CN.md` and
+`examples/frontend-turn.example.json`.
+
 ## v0.2 Starter Kit
 
 Everthread includes a small Python CLI:
