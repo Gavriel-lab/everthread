@@ -118,13 +118,16 @@ python -m everthread --help
 python -m everthread init ./my-memory
 ```
 
-### 导入 ChatGPT 导出
+### 导入聊天记录原文
 
 ```bash
 python -m everthread import chatgpt ./chatgpt-export --workspace ./my-memory
 ```
 
-导入器会：
+这里的 `chatgpt` 是 v0.2 第一版示例适配器的名字，不代表 Everthread 只服务 ChatGPT。
+Claude、Gemini、Telegram 日志、SillyTavern 聊天和其他端点，都可以按同一套冷仓库协议写自己的导入适配器。
+
+当前导入器会：
 
 - 查找 `conversations*.json`
 - 跳过重复 conversation ID
@@ -147,6 +150,17 @@ python -m everthread recall-budget --workspace ./my-memory --force
 ```
 
 生成后的 `recall-budget.json` 会限制旧仓库召回，避免新端点一上来读爆历史记录。
+
+## 遗忘模型
+
+Everthread 里的“遗忘”不是粗暴删除，而是让记忆从高频主动召回，流向更安静的位置。
+
+- **soft_forget 软遗忘**：原文仍保存在冷仓库，但降低主动出现的概率。
+- **sink 沉降**：低优先级内容沉入低频存储，不再挤占热脑区。
+- **compress 压缩**：把原始聊天整理成日记、月度 digest 或稳定记忆对象。
+- **delete 删除**：只有用户明确要求删除时，才物理移除数据。
+
+这样既不会让新端点被旧记录拖垮，也不会假装共同经历不存在。
 
 ## 注意
 

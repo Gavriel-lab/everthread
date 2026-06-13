@@ -52,9 +52,22 @@ python -m everthread digest monthly --workspace ./my-memory
 python -m everthread recall-budget --workspace ./my-memory --force
 ```
 
-The CLI scans ChatGPT `conversations*.json` exports, writes manifests and
+The `chatgpt` command is the first import adapter, not a product boundary.
+Everthread can support Claude, Gemini, Telegram logs, SillyTavern chats, and
+other raw chat sources through additional adapters.
+
+The current adapter scans `conversations*.json` exports, writes manifests and
 dedupe hashes, creates per-conversation Markdown files, and generates monthly
 digest maps. It does not delete or rewrite the original export.
+
+## Forgetting Model
+
+Forgetting in Everthread means controlled memory flow, not careless deletion.
+
+- `soft_forget`: keep the raw record, but reduce active recall.
+- `sink`: move low-priority material into slower storage.
+- `compress`: preserve meaning in diaries, digests, or stable memory objects.
+- `delete`: physically remove data only when the user intentionally chooses it.
 
 ## License
 

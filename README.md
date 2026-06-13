@@ -119,13 +119,18 @@ my-memory/
   everthread.json
 ```
 
-### Import a ChatGPT export
+### Import raw chat records
 
 ```bash
 python -m everthread import chatgpt ./chatgpt-export --workspace ./my-memory
 ```
 
-The importer:
+The current v0.2 importer uses `chatgpt` as the first adapter name because
+ChatGPT exports are a common starting format. Everthread itself is not tied to
+ChatGPT. Claude, Gemini, Telegram logs, SillyTavern chats, and other sources can
+use their own adapters as long as they preserve the same cold-warehouse contract.
+
+This importer:
 
 - scans `conversations*.json`
 - skips duplicate conversation IDs
@@ -161,6 +166,22 @@ This creates a default recall budget that keeps legacy recall light:
 - max legacy queries per interaction: 1
 - max results per query: 5
 - prefer digest before raw search
+
+## Forgetting Model
+
+Everthread treats forgetting as memory flow, not careless deletion.
+
+- **soft_forget**: keep the original record in the cold warehouse, but lower its
+  chance of active recall.
+- **sink**: move low-urgency material into slower storage so it stops crowding
+  the active companion.
+- **compress**: preserve the meaning in a diary, monthly digest, or stable memory
+  object instead of repeatedly recalling raw logs.
+- **delete**: physically remove data only when the user deliberately chooses to
+  delete it.
+
+This lets a companion stay light and alive without pretending the shared past
+never happened.
 
 ## 数据边界
 
