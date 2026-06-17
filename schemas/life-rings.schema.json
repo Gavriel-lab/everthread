@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://everthread.dev/schemas/life-rings.schema.json",
+  "title": "Everthread Life Rings Card",
+  "type": "object",
+  "required": ["schema", "period_type", "period", "source_count", "category_counts", "raw_body_included"],
+  "properties": {
+    "schema": {
+      "const": "everthread.life_ring_card.v0.1"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "period_type": {
+      "type": "string",
+      "enum": ["week", "month", "quarter", "half_year", "year"]
+    },
+    "period": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "source_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "message_blocks": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "category_counts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "source_files": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "previews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title_hash", "title_preview", "source", "categories"],
+        "properties": {
+          "title_hash": { "type": "string" },
+          "title_preview": { "type": "string" },
+          "source": { "type": "string" },
+          "categories": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "string"
+    },
+    "privacy_note": {
+      "type": "string"
+    },
+    "raw_body_included": {
+      "const": false
+    }
+  }
+}
