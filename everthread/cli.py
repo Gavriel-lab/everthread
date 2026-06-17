@@ -9,6 +9,7 @@ from pathlib import Path
 
 from .digest import generate_monthly_digests
 from .importers.chatgpt import import_chatgpt_export
+from .life_rings import generate_life_rings
 from .workspace import create_workspace, write_recall_budget
 
 
@@ -35,6 +36,11 @@ def build_parser() -> argparse.ArgumentParser:
     digest_sub = digest.add_subparsers(dest="digest_type", required=True)
     monthly = digest_sub.add_parser("monthly", help="Generate monthly digest from imported conversations.")
     monthly.add_argument("--workspace", "-w", default="everthread-memory")
+    life_rings = digest_sub.add_parser(
+        "life-rings",
+        help="Generate weekly/monthly/quarterly/half-year/year Life Rings cards from daily-life patterns.",
+    )
+    life_rings.add_argument("--workspace", "-w", default="everthread-memory")
 
     budget = sub.add_parser("recall-budget", help="Write a default recall budget file.")
     budget.add_argument("--workspace", "-w", default="everthread-memory")
@@ -59,6 +65,8 @@ def main(argv: list[str] | None = None) -> int:
             )
         elif args.command == "digest" and args.digest_type == "monthly":
             result = generate_monthly_digests(Path(args.workspace))
+        elif args.command == "digest" and args.digest_type == "life-rings":
+            result = generate_life_rings(Path(args.workspace))
         elif args.command == "recall-budget":
             result = write_recall_budget(Path(args.workspace), force=args.force)
         else:

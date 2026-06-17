@@ -76,6 +76,7 @@ everthread/
     brain-area-routing.schema.json
     recall-budget.schema.json
     monthly-digest.schema.json
+    life-rings.schema.json
   templates/
     brain-config.template.json
   examples/
@@ -156,6 +157,24 @@ my-memory/dream/monthly/
 
 Digest files do not quote private message bodies by default.
 
+### Generate Life Rings
+
+```bash
+python -m everthread digest life-rings --workspace ./my-memory
+```
+
+Life Rings turn repeated daily-life fragments into weekly, monthly, quarterly,
+half-year, and yearly cards under:
+
+```text
+my-memory/dream/life-rings/
+```
+
+They are meant for routines, meals, body state, schedule rhythms, and emotional
+patterns that are too granular for Hot Brain but too meaningful to discard.
+The open-source implementation uses metadata and title previews by default; it
+does not quote private message bodies.
+
 ### Generate recall budget
 
 ```bash
@@ -206,6 +225,7 @@ See:
 
 - `docs/frontend-port-adapter.zh-CN.md`
 - `examples/frontend-turn.example.json`
+- `docs/life-rings.zh-CN.md`
 
 ## 数据边界
 
