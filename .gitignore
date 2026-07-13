@@ -1,1 +1,13 @@
+.env
+.env.*
+*.log
+node_modules/
+dist/
+build/
+.DS_Store
+__pycache__/
+.pytest_cache/
+private/
+raw-exports/
+secrets/
 .worktrees/
