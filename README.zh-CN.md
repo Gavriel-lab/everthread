@@ -16,6 +16,32 @@ Everthread 是一套给长期 AI 伴侣使用的可迁移记忆架构。
 
 Everthread 给出一个分层方案：原文保留，热记忆常驻，梦境沉淀，召回受控，跨端共享协议。
 
+## v0.3：可运行的 Brain Runtime Kit
+
+v0.3 新增 Node.js 20+、零第三方运行依赖的 Brain Runtime Kit。它不是网页产品的拆包版本，只公开可迁移的脑区结构、记忆存储和流转方法：
+
+```text
+捕获 -> 校验 / 隔离 -> 丘脑路由 -> 候选队列 -> 四路审查
+     -> Life Rings / REM -> 固定顺序读路径 -> 可选影子向量 -> 状态 -> 停止
+```
+
+- 高隐私或 guarded 内容必须进入人工审阅，未审阅前不会出现在 active context。
+- 所有阶段都能重复运行，同一 ID 不会反复生成记忆。
+- JSON 快照使用原子替换；向量供应商失败时保留上一份有效索引。
+- `run` 是 one-shot（单次运行），不会安装 daemon、Heartbeat、定时任务或公开 API。
+- 开源包不包含私有 Studio 框架、真实记忆、账号、部署路径或密钥。
+
+快速体验：
+
+```bash
+node runtime/cli.mjs init ./my-runtime
+node runtime/cli.mjs capture ./my-runtime examples/runtime/capture-event.example.json
+node runtime/cli.mjs run ./my-runtime
+node runtime/cli.mjs status ./my-runtime
+```
+
+完整说明：`docs/brain-runtime-v0.3.zh-CN.md`、`docs/runtime-storage-flow.zh-CN.md`。
+
 ## 五层架构
 
 ### 1. Hot Brain 热脑区
@@ -119,7 +145,7 @@ Everthread 不替代 TG bot、自制前端或网页聊天端。它更适合放�
 
 ## 最小可用实践
 
-如果你只想先搭一个能用的版本，可以直接使用 v0.2 CLI。
+如果你要导入历史聊天、生成月度 digest，也可以继续使用从 v0.2 保留下来的 Python CLI。
 
 ### 安装
 

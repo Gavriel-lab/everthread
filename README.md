@@ -18,6 +18,42 @@
 
 Everthread 的目标不是替用户删掉亲密原文，而是让原文有主人、有边界、有层次地被保存和召回。
 
+## v0.3 Brain Runtime Kit
+
+v0.3 把可复用的 Brain 脑区架构与真实记忆流转做成了可运行的 Node.js Runtime Kit，同时完整保留 v0.2 Python Starter Kit。
+
+```text
+Capture 捕获
+  -> Validate / Quarantine 校验与隔离
+  -> Thalamus 丘脑路由
+  -> Candidate 候选记忆
+  -> Review 审查
+       -> accepted 已接受
+       -> deferred 延后观察
+       -> needs_human_review 待人工审阅
+       -> rejected 噪声拒绝
+  -> Life Rings / REM 生命环与梦境沉淀
+  -> Read Path 受控读路径
+  -> Optional Shadow Vector 可选影子向量
+  -> Status 状态
+  -> Stop 停止
+```
+
+它只包含 Brain 后端协议与数据流，不包含任何私有 Studio 框架、页面、CSS、真实记忆、部署地址或密钥；默认也不会启动 daemon、Heartbeat 或公开 API。
+
+### 运行 v0.3
+
+需要 Node.js 20+，无需安装第三方依赖：
+
+```bash
+node runtime/cli.mjs init ./my-runtime
+node runtime/cli.mjs capture ./my-runtime examples/runtime/capture-event.example.json
+node runtime/cli.mjs run ./my-runtime
+node runtime/cli.mjs status ./my-runtime
+```
+
+每次 `run` 只处理一轮然后停止；重复运行不会重复生成候选记忆或审查决策。详见 `docs/brain-runtime-v0.3.zh-CN.md` 与 `docs/runtime-storage-flow.zh-CN.md`。
+
 ## 核心理念
 
 Everthread 把长期记忆分成五层：
@@ -84,7 +120,7 @@ everthread/
   tests/
 ```
 
-## v0.2 Starter Kit
+## Python Starter Kit（保留自 v0.2）
 
 Everthread v0.2 includes a small Python CLI. It uses only the Python standard
 library.
