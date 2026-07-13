@@ -5,9 +5,15 @@ import subprocess
 import sys
 from pathlib import Path
 
+from everthread import __version__
+
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests" / "fixtures" / "chatgpt-export"
+
+
+def test_package_version_matches_v03_release() -> None:
+    assert __version__ == "0.3.0"
 
 
 def run_cli(*args: str, cwd: Path | None = None) -> dict:

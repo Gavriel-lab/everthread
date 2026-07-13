@@ -4,6 +4,29 @@ Everthread is a portable memory architecture for long-term AI companions.
 
 It is designed for people who want their AI companion to remain continuous across apps, models, bots, and frontends. The goal is not to erase raw chat history. The goal is to preserve it in a layered way so the active companion can stay warm without being overloaded.
 
+## v0.3 Brain Runtime Kit
+
+v0.3 adds a runnable, zero-dependency Node.js 20+ implementation of the reusable Brain architecture and memory flow:
+
+```text
+Capture -> Validate / Quarantine -> Thalamus routing -> Candidate queue
+        -> Four-way review -> Life Rings / REM -> Ordered read path
+        -> Optional shadow vector -> Status -> Stop
+```
+
+The runtime is queue-only, workspace-scoped, idempotent, and one-shot. Guarded or high-privacy content is held for human review and is never exposed in active context. Snapshot writes are atomic, and a failed vector provider cannot replace the previous valid index.
+
+This repository does not publish a private Studio framework, UI, real memories, deployment addresses, credentials, daemons, Heartbeats, or a public API.
+
+```bash
+node runtime/cli.mjs init ./my-runtime
+node runtime/cli.mjs capture ./my-runtime examples/runtime/capture-event.example.json
+node runtime/cli.mjs run ./my-runtime
+node runtime/cli.mjs status ./my-runtime
+```
+
+See `docs/brain-runtime-v0.3.en.md` for the complete runtime guide.
+
 ## Problem
 
 AI companion users often lose continuity when they move to a new endpoint:
@@ -61,7 +84,7 @@ endpoints connected to the same memory flow.
 See `docs/frontend-port-adapter.zh-CN.md` and
 `examples/frontend-turn.example.json`.
 
-## v0.2 Starter Kit
+## Python Starter Kit (preserved from v0.2)
 
 Everthread includes a small Python CLI:
 

@@ -1,0 +1,10 @@
+{
+  "id": "fictional-preference-001",
+  "source": "fictional-companion-chat",
+  "timestamp": "2026-07-13T08:00:00Z",
+  "content": "Mira prefers release notes that begin with the outcome.",
+  "privacy": "low",
+  "confidence": 0.96,
+  "salience": 0.72,
+  "tags": ["preference"]
+}

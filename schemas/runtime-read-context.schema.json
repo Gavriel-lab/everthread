@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Gavriel-lab/everthread/schemas/runtime-read-context.schema.json",
+  "title": "Everthread Runtime Read Context",
+  "type": "object",
+  "required": [
+    "version", "generated_at", "budget", "read_order", "items", "deferred",
+    "human_review", "legacy_fallback", "guardrails"
+  ],
+  "properties": {
+    "version": { "const": "0.3.0" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "budget": { "type": "integer", "minimum": 1 },
+    "read_order": { "type": "array", "items": { "type": "string" }, "minItems": 6, "maxItems": 6 },
+    "items": { "type": "array", "items": { "type": "object" } },
+    "deferred": { "type": "object" },
+    "human_review": { "type": "object" },
+    "legacy_fallback": { "type": "object" },
+    "guardrails": { "type": "object" }
+  }
+}
