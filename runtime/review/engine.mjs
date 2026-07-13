@@ -18,7 +18,14 @@ export async function reviewCandidates(root) {
   const candidates = await readJsonl(paths.candidates);
   const state = await readJson(paths.reviewProcessed, { memory_ids: [] });
   const processed = new Set(state.memory_ids ?? []);
-  for (const decision of await readJsonl(paths.decisions)) processed.add(decision.memory_id);
+  const decisions = await readJsonl(paths.decisions);
+  const decisionsById = new Map(decisions.map(decision => [decision.memory_id, decision]));
+  const outputIds = {
+    accepted: new Set((await readJsonl(paths.accepted)).map(item => item.id)),
+    deferred: new Set((await readJsonl(paths.deferred)).map(item => item.id)),
+    needs_human_review: new Set((await readJsonl(paths.humanReview)).map(item => item.id)),
+    rejected: new Set((await readJsonl(paths.rejected)).map(item => item.id))
+  };
   const counts = {
     scanned: candidates.length,
     decided: 0,
@@ -30,26 +37,37 @@ export async function reviewCandidates(root) {
   };
 
   for (const candidate of candidates) {
-    if (processed.has(candidate.id)) {
+    const existingDecision = decisionsById.get(candidate.id);
+    if (existingDecision && outputIds[existingDecision.outcome]?.has(candidate.id)) {
+      processed.add(candidate.id);
       counts.skipped += 1;
       continue;
     }
-    const result = decideCandidate(candidate);
-    const reviewedAt = new Date().toISOString();
-    const decision = {
+    const result = existingDecision ?? {
+      ...decideCandidate(candidate),
       memory_id: candidate.id,
+      reviewed_at: new Date().toISOString()
+    };
+    const decision = existingDecision ?? {
+      memory_id: result.memory_id,
       outcome: result.outcome,
       reasons: result.reasons,
-      reviewed_at: reviewedAt
+      reviewed_at: result.reviewed_at
     };
-    await appendJsonl(paths.decisions, decision);
-    await appendJsonl(outputPath(paths, result.outcome), {
-      ...candidate,
-      review: decision
-    });
+    if (!existingDecision) {
+      await appendJsonl(paths.decisions, decision);
+      decisionsById.set(candidate.id, decision);
+    }
+    if (!outputIds[decision.outcome].has(candidate.id)) {
+      await appendJsonl(outputPath(paths, decision.outcome), {
+        ...candidate,
+        review: decision
+      });
+      outputIds[decision.outcome].add(candidate.id);
+    }
     processed.add(candidate.id);
     counts.decided += 1;
-    counts[result.outcome] += 1;
+    counts[decision.outcome] += 1;
   }
 
   await atomicWriteJson(paths.reviewProcessed, { memory_ids: [...processed].sort() });

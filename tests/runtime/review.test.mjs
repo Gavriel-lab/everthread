@@ -72,3 +72,24 @@ test('routes guarded content only to human review and is idempotent', async () =
     skipped: 2
   });
 });
+
+
+test('recovers when a decision exists but its outcome write was interrupted', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'everthread-'));
+  const paths = await ensureRuntimeWorkspace(root);
+  const memory = candidate({ id: 'mem-interrupted' });
+  const decision = {
+    memory_id: memory.id,
+    outcome: 'accepted',
+    reasons: ['durable:preference'],
+    reviewed_at: '2026-07-13T00:02:00Z'
+  };
+  await appendJsonl(paths.candidates, memory);
+  await appendJsonl(paths.decisions, decision);
+
+  const result = await reviewCandidates(root);
+  assert.equal(result.decided, 1);
+  assert.equal(result.accepted, 1);
+  assert.equal((await readJsonl(paths.decisions)).length, 1);
+  assert.equal((await readJsonl(paths.accepted))[0].id, memory.id);
+});
