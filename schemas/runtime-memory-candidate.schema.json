@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Gavriel-lab/everthread/schemas/runtime-memory-candidate.schema.json",
+  "title": "Everthread Runtime Memory Candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id", "source_event_id", "source", "timestamp", "content", "privacy",
+    "confidence", "salience", "tags", "brain_area", "routing_reasons", "candidate_created_at"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^mem-[a-f0-9]{20}$" },
+    "source_event_id": { "type": "string", "minLength": 1 },
+    "source": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "content": { "type": "string", "minLength": 1 },
+    "privacy": { "enum": ["low", "medium", "high", "guarded"] },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "salience": { "type": "number", "minimum": 0, "maximum": 1 },
+    "tags": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "brain_area": {
+      "enum": [
+        "brainstem", "hippocampus", "neocortex", "prefrontal", "amygdala",
+        "cerebellum", "thalamus", "working_memory", "synapses", "dreaming"
+      ]
+    },
+    "routing_reasons": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "candidate_created_at": { "type": "string", "format": "date-time" }
+  }
+}
