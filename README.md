@@ -100,6 +100,14 @@ everthread/
   everthread/
     cli.py
     importers/
+  runtime/
+    capture/
+    routing/
+    review/
+    consolidation/
+    read/
+    vector/
+    loop/
   docs/
     architecture.zh-CN.md
     memory-lifecycle.zh-CN.md
