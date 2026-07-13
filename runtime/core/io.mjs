@@ -65,6 +65,22 @@ export async function appendJsonl(filePath, value) {
 }
 
 
+export async function atomicWriteJsonl(filePath, values) {
+  await mkdir(path.dirname(filePath), { recursive: true });
+  const temporary = `${filePath}.${process.pid}.${randomUUID()}.tmp`;
+  try {
+    const text = values.length > 0
+      ? `${values.map(value => JSON.stringify(value)).join('\n')}\n`
+      : '';
+    await import('node:fs/promises').then(({ writeFile }) => writeFile(temporary, text, 'utf8'));
+    await rename(temporary, filePath);
+  } catch (error) {
+    await rm(temporary, { force: true });
+    throw error;
+  }
+}
+
+
 export async function ensureEmptyFile(filePath) {
   await mkdir(path.dirname(filePath), { recursive: true });
   const handle = await open(filePath, 'a');
