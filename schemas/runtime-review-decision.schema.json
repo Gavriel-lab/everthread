@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Gavriel-lab/everthread/schemas/runtime-review-decision.schema.json",
+  "title": "Everthread Runtime Review Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["memory_id", "outcome", "reasons", "reviewed_at"],
+  "properties": {
+    "memory_id": { "type": "string", "minLength": 1 },
+    "outcome": { "enum": ["accepted", "deferred", "needs_human_review", "rejected"] },
+    "reasons": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "reviewed_at": { "type": "string", "format": "date-time" }
+  }
+}
